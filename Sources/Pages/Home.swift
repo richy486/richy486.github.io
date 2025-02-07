@@ -6,9 +6,12 @@ struct Home: StaticLayout {
 
   var body: some HTML {
     VStack {
+      Image("images/filter.jpg")
+        .accessibilityLabel("A simple synth filter module.")
       Text("Projects by Richy")
         .font(.title1)
-      Link("Platformer", target: "https://richy486.github.io/platformer/")
+
+      Link("Platformer", target: "platformer")
     }
   }
 }
