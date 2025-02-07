@@ -8,7 +8,7 @@ struct Home: StaticLayout {
     VStack {
       Text("Projects by Richy")
         .font(.title1)
-      Link("Platformer", target: Platformer())
+      Link("Platformer", target: "https://richy486.github.io/platformer/")
     }
   }
 }
