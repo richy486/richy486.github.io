@@ -12,7 +12,7 @@ struct Platformer: StaticLayout {
   var title = "Platformer"
 
   var body: some HTML {
-    Text("Projects by Richy")
+    Text("Platformer page")
       .font(.title1)
   }
 }
