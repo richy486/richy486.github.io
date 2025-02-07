@@ -24,10 +24,6 @@ struct ExampleSite: Site {
 
   var homePage = Home()
   var layout = MainLayout()
-
-  var staticLayouts: [any StaticLayout] {
-    Platformer()
-  }
 }
 
 
