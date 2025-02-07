@@ -5,7 +5,10 @@ struct Home: StaticLayout {
   var title = "Home"
 
   var body: some HTML {
-    Text("Hello, how are you?")
-      .font(.title1)
+    VStack {
+      Text("Projects by Richy")
+        .font(.title1)
+      Link("Platformer", target: Platformer())
+    }
   }
 }
