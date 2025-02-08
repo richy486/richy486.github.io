@@ -2,10 +2,12 @@ import Foundation
 import Ignite
 
 struct MainLayout: Layout {
-    var body: some HTML {
-        HTMLDocument {
-            HTMLHead(for: page)
-            HTMLBody(for: page)
-        }
+  var body: some HTML {
+    HTMLDocument {
+      HTMLHead(for: page)
+      HTMLBody {
+        Section(page.body)
+      }
     }
+  }
 }

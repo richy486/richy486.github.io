@@ -2,16 +2,15 @@ import Foundation
 import Ignite
 
 struct Home: StaticLayout {
-  var title = "Home"
+  var title = "Projects by Richy"
 
   var body: some HTML {
-    VStack {
-      Image("images/filter.jpg")
-        .accessibilityLabel("A simple synth filter module.")
-      Text("Projects by Richy")
-        .font(.title1)
+    Image("images/filter.jpg", description: "A simple synth filter module.")
+      .resizable()
 
-      Link("Platformer", target: "platformer")
-    }
+    Text(title)
+      .font(.title1)
+
+    Link("Platformer", target: "platformer")
   }
 }
