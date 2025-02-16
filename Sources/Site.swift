@@ -24,7 +24,7 @@ struct ExampleSite: Site {
 #endif
   var builtInIconsEnabled = true
   var feedConfiguration = FeedConfiguration(mode: .full, contentCount: 20, image: .init(url: "https://www.yoursite.com/images/icon32.png", width: 32, height: 32))
-
+  var syntaxHighlighters: [HighlighterLanguage] = [.swift]
   var author = "Richy"
 
   var homePage = Home()

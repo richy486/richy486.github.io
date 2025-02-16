@@ -1,15 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "ignite",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/twostraws/Ignite.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "89dfd2cba9faeb59be02de477c40a995d6ef27de"
-      }
-    },
-    {
       "identity" : "swift-argument-parser",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-argument-parser.git",

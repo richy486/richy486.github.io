@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:richy486.github.io}",
+      "name": "Debug IgniteStarter",
+      "program": "/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2024-08-07-a.xctoolchain/usr/bin/debug/IgniteStarter",
+      "preLaunchTask": "swift: Build Debug IgniteStarter"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:richy486.github.io}",
+      "name": "Release IgniteStarter",
+      "program": "/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2024-08-07-a.xctoolchain/usr/bin/release/IgniteStarter",
+      "preLaunchTask": "swift: Build Release IgniteStarter"
+    }
+  ]
+}
