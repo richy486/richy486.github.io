@@ -93,14 +93,19 @@ struct Platformer: StaticLayout {
 
       Text(markdown:
       """
-      I soon discover that [PlaydateKit](https://github.com/finnvoor/PlaydateKit) is a much easier
-      library to use than Apple's example and make a Playdate Kit project. The first issue was that 
-      I couldn’t import the Platformer the Platformer into the Play Date kit project due to the it
-      not being a OSSA module. I also tried to just use a symlink but the folder it showed up as a 
+      I soon discoverd the library [PlaydateKit](https://github.com/finnvoor/PlaydateKit) which is 
+      really easy to use for different game projects where Apple's example is more of an example of
+      what can be done. 
+      But the first issue I found was that I couldn’t import the Platformer System into the Play Date
+      kit project because it isn't an OSSA module and also the SPM setup of Platdate Kit is for the 
+      build system, adding dependencies to the `Package.swift` file doesn't add them to your game project,
+      it's adding them to the Platdate build system for Swift.
+           
+      I tried to just use a symlink but the folder it showed up as a 
       "chain" icon and i couldn’t see the files. The structure of Swift Package Manager projects 
-      doesn't allow inclusion of folders so I couldn't add a local package from a folder higher up
-      the folder hierarchy. I ended up just copying the files into the Playdate project to get
-      started.
+      doesn't allow inclusion of folders ouside the `Source` folder so I couldn't add a local package 
+      from higher up the folder hierarchy. I ended up just copying the files into the Playdate project
+      to get started.
       """)
 
       Text(markdown:
@@ -294,7 +299,8 @@ struct Platformer: StaticLayout {
 
       Text(markdown:
       """
-      Now the game is playable on the Playdate.
+      Now the game is playable on the Playdate! I can build and run it on the Platdate simulator or take 
+      the zipped .pdx file and [side load](https://help.play.date/games/sideloading/) it to a physical device.
       """)
 
     }
@@ -304,8 +310,8 @@ struct Platformer: StaticLayout {
 
       Text(markdown:
       """
-      After getting it to run on the Playdate I had to get it to run again with Sprite Kit, this 
-      involved hooking up the new `Observer` class and since I had trouble linking the Platformer 
+      After getting it to run on the Playdate I wanted to get it running again with Sprite Kit, this 
+      involved hooking up the new `Observer` class on the Sprite Kit side and since I had trouble linking the Platformer 
       system to the Playdate project I just made a script to copy the code form the Platformer 
       system folder to the Playdate project, which is not ideal but works. The `PlaydateKit` imports
       are wrapped in a `#if canImport(PlaydateKit)` macro otherwise it uses `Foundation`.
