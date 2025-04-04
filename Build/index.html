@@ -1,24 +1,16 @@
 <!doctype html>
-<html data-bs-theme="auto" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="Richy" name="author" />
-    <meta content="Ignite v0.2.1" name="generator" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Richy" />
+    <meta name="generator" content="Ignite v0.5.2" />
     <title>Projects by RichyProjects and experiments</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/css/prism-xcode-dark.css" rel="stylesheet" data-highlight-theme="xcode-dark" />
-    <link href="/css/prism-xcode-light.css" rel="stylesheet" data-highlight-theme="xcode-light" />
     <link href="/css/bootstrap-icons.min.css" rel="stylesheet" />
-    <link href="/css/themes.min.css" rel="stylesheet" />
+    <link href="/css/ignite-core.min.css" rel="stylesheet" />
     <link href="http://localhost:8000/" rel="canonical" />
-    <script>/*
- Automatic Theme Switching Implementation
- Used in HTMLHead.swift.
- For user-driven theme switching implementation, see ignite-core.js.
- */
-
-(function() {
+    <script>(function() {
     function getThemePreference() {
         return localStorage.getItem('custom-theme') || 'auto';
     }
@@ -62,22 +54,22 @@
     applySyntaxTheme();
 })();
 </script>
-    <meta content="Richy" property="og:site_name" />
-    <meta content="Projects by Richy" property="og:title" />
-    <meta content="Projects by Richy" name="twitter:title" />
-    <meta content="http://localhost:8000/" property="og:url" />
-    <meta content="localhost" name="twitter:domain" />
-    <meta content="summary_large_image" name="twitter:card" />
-    <meta content="on" name="twitter:dnt" />
+    <meta property="og:site_name" content="Richy" />
+    <meta property="og:title" content="Projects by Richy" />
+    <meta name="twitter:title" content="Projects by Richy" />
+    <meta property="og:url" content="http://localhost:8000/" />
+    <meta name="twitter:domain" content="localhost" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:dnt" content="on" />
   </head>
   <body class="container">
     <div>
-      <img alt="A simple synth filter module." src="images/filter.jpg" class="img-fluid" />
+      <img src="images/filter.jpg" alt="A simple synth filter module." class="img-fluid" />
       <h1>Projects by Richy</h1>
-      <a href="platformer" class="link-underline link-underline-opacity-100 link-underline-opacity-100-hover">Platformer</a>
+      <a href="platformer">Platformer</a>
     </div>
+    <p class="text-center mt-5">Created in Swift with <a href="https://github.com/twostraws/Ignite">Ignite</a></p>
     <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/syntax-highlighting.js"></script>
     <script src="/js/ignite-core.js"></script>
   </body>
 </html>

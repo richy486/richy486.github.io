@@ -1,6 +1,6 @@
 # richy486.github.io
 
-Open `Package.swift` in Xcode and build.
+Open `Package.swift` in Xcode and build and run to update the html. Make sure to do this before publishing.
 
 Run locally with `python3 -m http.server` in the `Build` directory, e.g. `cd Build/;python3 -m http.server;cd ..`
 

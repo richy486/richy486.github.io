@@ -8,7 +8,7 @@
 import Foundation
 import Ignite
 
-struct Platformer: StaticLayout {
+struct Platformer: StaticPage {
   var title = "Platformer game on Embedded Swift with Playdate Kit"
 
   var parentLayout = SuggestedArticleLayout()

@@ -1,9 +1,9 @@
 import Foundation
 import Ignite
 
-struct Home: StaticLayout {
+struct Home: StaticPage {
   var title = "Projects by Richy"
-
+  
   var body: some HTML {
     Image("images/filter.jpg", description: "A simple synth filter module.")
       .resizable()

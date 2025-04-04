@@ -1,24 +1,16 @@
 <!doctype html>
-<html data-bs-theme="auto" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="Richy" name="author" />
-    <meta content="Ignite v0.2.1" name="generator" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Richy" />
+    <meta name="generator" content="Ignite v0.5.2" />
     <title>Platformer game on Embedded Swift with Playdate KitProjects and experiments</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/css/prism-xcode-dark.css" rel="stylesheet" data-highlight-theme="xcode-dark" />
-    <link href="/css/prism-xcode-light.css" rel="stylesheet" data-highlight-theme="xcode-light" />
     <link href="/css/bootstrap-icons.min.css" rel="stylesheet" />
-    <link href="/css/themes.min.css" rel="stylesheet" />
+    <link href="/css/ignite-core.min.css" rel="stylesheet" />
     <link href="http://localhost:8000/platformer" rel="canonical" />
-    <script>/*
- Automatic Theme Switching Implementation
- Used in HTMLHead.swift.
- For user-driven theme switching implementation, see ignite-core.js.
- */
-
-(function() {
+    <script>(function() {
     function getThemePreference() {
         return localStorage.getItem('custom-theme') || 'auto';
     }
@@ -62,59 +54,57 @@
     applySyntaxTheme();
 })();
 </script>
-    <meta content="Richy" property="og:site_name" />
-    <meta content="Platformer game on Embedded Swift with Playdate Kit" property="og:title" />
-    <meta content="Platformer game on Embedded Swift with Playdate Kit" name="twitter:title" />
-    <meta content="http://localhost:8000/platformer" property="og:url" />
-    <meta content="localhost" name="twitter:domain" />
-    <meta content="summary_large_image" name="twitter:card" />
-    <meta content="on" name="twitter:dnt" />
+    <meta property="og:site_name" content="Richy" />
+    <meta property="og:title" content="Platformer game on Embedded Swift with Playdate Kit" />
+    <meta name="twitter:title" content="Platformer game on Embedded Swift with Playdate Kit" />
+    <meta property="og:url" content="http://localhost:8000/platformer" />
+    <meta name="twitter:domain" content="localhost" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:dnt" content="on" />
   </head>
   <body class="container">
-    <div class="row">
-      <div class=" col-md-9">
-        <div>
-          <h1>Platformer game on Embedded Swift with Playdate Kit</h1>
-          <div>
-            <img alt="The Playdate running a version of the Platformer game" src="https://res.cloudinary.com/dxhxohuwc/image/upload/t_512x512/v1738924343/platformer_square_xicjne.jpg" class="img-fluid" />
-            <p>When Swift announced that it was <a href="https://www.swift.org/getting-started/embedded-swift/">supporting embedded systems</a> and <a href="https://www.swift.org/blog/byte-sized-swift-tiny-games-playdate/">supporting the Playdate</a> I wanted to try it out myself. I already had a Playdate and I had tried <a href="https://play.date/pulp">Pulp</a> before. <br />First I built some simple games with the <a href="https://github.com/apple/swift-playdate-examples">Apple Swift-Playdate examples</a> , then i discovered <a href="https://github.com/finnvoor/PlaydateKit">PlaydateKit</a> which is a fantastic , easy to use library.</p>
-            <h3>Platformer game experiment</h3>
-            <img alt="Platformer game in SpriteKit, player picking up a pig and dropping it" src="https://res.cloudinary.com/dxhxohuwc/image/upload/v1739002060/platformer-pig_gif.gif" class="img-fluid" />
-            <p>Before my first child was born I built a little <a href="https://github.com/richy486/Platformer">platformer game experiment</a> in Swift with <a href="https://developer.apple.com/documentation/spritekit/">SpriteKit</a> trying to replicate the Mario games, I was heavily influenced by <a href="https://github.com/mmatyas/supermariowar">Super Mario War</a> by Florian Hufsky as well as the jumping from the original Super Mario Bros assembly code. It wasn’t a “game” with levels and goals etc. more a learning experience project that a game could be built on later. <br /> <br />The game had the following features:</p>
-            <ul>
-              <li>Sloped tiles</li>
-              <li>Breakable blocks</li>
-              <li>Item boxes</li>
-              <li>Bouncing items (like turtle shells)</li>
-              <li>Items can be picked up</li>
-              <li>Items can be collected</li>
-              <li>Jump up through platforms</li>
-              <li>Glide over gaps when running</li>
-              <li>Lerping camera</li>
-              <li>In game level editor</li>
-              <li>Javascript reader to extend the game from the Swift code</li>
-              <li>Quake like console for entering commands</li>
-            </ul>And probably some others I have forgotten.
-            <p></p>
-          </div>
-          <div>
-            <h3>Five years later...</h3>
-            <p>Fast forward five years and I’m looking through some of my old games with my five year old son over the holiday break and I come across the Platformer game, he immediately dives in and starts making levels for the game! I think, wouldn’t it be great to play those levels on the Playdate and show the rest of the family, so while he is building levels I start looking at building the game on the Playdate.</p>
-            <p>I find out that I had already separated the code into the Platformer system and the game play / UI, this makes everything much easier because the SpriteKit part is can be replaced with another library for rendering.</p>
-            <p>Currently, to build Embedded Swift you need to build with a recent <a href="https://www.swift.org/download/#snapshots">nightly Swift toolchain</a>. Since Core Graphics isn’t included in Swift Embedded, I start replacing <code>CGPoint</code> with a simple <code>Point</code> struct and replace <code>CGFloat</code> with <code>Double</code>, these kind of changes will come up a lot in this project.</p>
-            <p>I soon discover that <a href="https://github.com/finnvoor/PlaydateKit">PlaydateKit</a> is a much easier library to use than Apple’s example and make a Playdate Kit project. The first issue was that I couldn’t import the Platformer the Platformer into the Play Date kit project due to the it not being a OSSA module. I also tried to just use a symlink but the folder it showed up as a “chain” icon and i couldn’t see the files. The structure of Swift Package Manager projects doesn’t allow inclusion of folders so I couldn’t add a local package from a folder higher up the folder hierarchy. I ended up just copying the files into the Playdate project to get started.</p>
-            <p>Next I removed all instances of <code>import Foundation</code>, luckily PlaydateKit has a lot of functions found inFoundation functions such as <code>sin</code>, <code>cos</code>, <code>pow</code> and <code>sqrt</code>. I removed <code>String(format:)</code> and uses of <code>NotificationCenter</code> and fixed some Swift 6 concurrency issues. I made some of the classes final that had generic functions and kept going through the errors. Sometimes errors show up but go away if you fix another error.</p>
-            <h3>Cannot do dynamic casting in embedded Swift on...</h3>
-            <p>The next issue was that Embedded Swift can’t do dynamic casting to protocols so I changed the <code>Actor</code> which is all things that move in the game from a type alias protocol collection to a regular class that other actors inherit from. This is a bit more like regular object oriented game programming. I also moved some functions out of extensions and they became overrides of <code>Actor</code> functions.</p>
-            <p>I turned off the actors and hooked up the tile rendering to Playdate Kit. I drew new sprites in black and white for the Playdate and named the sprite sheet <code>blocks-table-16-16.png</code> so it loads sprites that are 16x16 pixels. This was a problem because I had hard coded the Platformer system to be 32x32 pixels, so on the Playdate side I halved all the sizes and positions, this is something that needs to be fixed by setting the tile size at launch.</p>
-            <p>I had some helper variables that give the position of tiles as integers as well as floats, these were two separate variables, looking back, I’m not sure why I did this, and now it was causing problems with the layout of the tiles. I changed this so that there is a computed value for the integers from the float value.</p>
-            <img alt="Platformer game running on Playdate with the blocks only." src="https://res.cloudinary.com/dxhxohuwc/image/upload/t_512_fill/v1739031315/platformer-blocks.png" class="img-fluid" />
-            <p>Some <code>Actors</code> conform to <code>Droppable</code>, meaning they have function they can call if the object is dropped by another <code>Actor</code>, e.g. a <code>Box</code> that was picked up by the <code>Player</code> then dropped. A problem was when checking if an dropped object is <code>Droppable</code> before called <code>drop()</code> e.g. <code>if let dropableAttachable = attachable as? Droppable</code> gives the <strong>Cannot do dynamic casting in embedded Swift</strong> error. Fixed this by a more object oriented approach by moving the <code>Drop</code> function to be part of <code>Actor</code> and <code>Actor</code>s that can’t be picked up have empty drop functions.</p>
-            <p>This was the same with merging two dictionaries of type <code>[UUID: Actor]</code>, instead I just replaced the merge with a loop to add them together.</p>
-            <h3>Replacing Notification Center</h3>
-            <p>In the original implementation, when something changes the level a Notification Center notification is sent out from anywhere in the code to trigger the map to update. Notification Center is obviously not available in Embedded Swift so I has to come up with a different solution.</p>
-            <p>I made an <code>Observer</code> class, how it works is the main <code>Game</code> class sets up an <code>update</code> closure via the <code>setupUpdate</code> function from the <code>Observer</code>, this <code>update</code> closure updates the map when triggered. The <code>setupUpdate</code> function sets a <code>sendUpdate</code> closure that can be called from anywhere else in the codebase. So somewhere else in the game, e.g. the character hits a block and destroys it, then the <code>Observer</code>’s <code>sendUpdate</code> is called which triggers the <code>update</code> close in the main <code>Game</code> class.</p>
-            <pre><code class="language-swift">// Pseudocode:
+    <div>
+      <h1>Platformer game on Embedded Swift with Playdate Kit</h1>
+      <div>
+        <img src="https://res.cloudinary.com/dxhxohuwc/image/upload/t_512x512/v1738924343/platformer_square_xicjne.jpg" alt="The Playdate running a version of the Platformer game" class="img-fluid" />
+        <p>When Swift announced that it was <a href="https://www.swift.org/getting-started/embedded-swift/">supporting embedded systems</a> and <a href="https://www.swift.org/blog/byte-sized-swift-tiny-games-playdate/">supporting the Playdate</a> I wanted to try it out myself. I already had a Playdate and I had tried <a href="https://play.date/pulp">Pulp</a> before. <br />First I built some simple games with the <a href="https://github.com/apple/swift-playdate-examples">Apple Swift-Playdate examples</a> , then i discovered <a href="https://github.com/finnvoor/PlaydateKit">PlaydateKit</a> which is a fantastic , easy to use library.</p>
+        <h3>Platformer game experiment</h3>
+        <img src="https://res.cloudinary.com/dxhxohuwc/image/upload/v1739002060/platformer-pig_gif.gif" alt="Platformer game in SpriteKit, player picking up a pig and dropping it" class="img-fluid" />
+        <p>Before my first child was born I built a little <a href="https://github.com/richy486/Platformer">platformer game experiment</a> in Swift with <a href="https://developer.apple.com/documentation/spritekit/">SpriteKit</a> trying to replicate the Mario games, I was heavily influenced by <a href="https://github.com/mmatyas/supermariowar">Super Mario War</a> by Florian Hufsky as well as the jumping from the original Super Mario Bros assembly code. It wasn’t a “game” with levels and goals etc. more a learning experience project that a game could be built on later. <br /> <br />The game had the following features:</p>
+        <ul>
+          <li>Sloped tiles</li>
+          <li>Breakable blocks</li>
+          <li>Item boxes</li>
+          <li>Bouncing items (like turtle shells)</li>
+          <li>Items can be picked up</li>
+          <li>Items can be collected</li>
+          <li>Jump up through platforms</li>
+          <li>Glide over gaps when running</li>
+          <li>Lerping camera</li>
+          <li>In game level editor</li>
+          <li>Javascript reader to extend the game from the Swift code</li>
+          <li>Quake like console for entering commands</li>
+        </ul>And probably some others I have forgotten.
+        <p></p>
+      </div>
+      <div>
+        <h3>Five years later...</h3>
+        <p>Fast forward five years and I’m looking through some of my old games with my five year old son over the holiday break and I come across the Platformer game, he immediately dives in and starts making levels for the game! I think, wouldn’t it be great to play those levels on the Playdate and show the rest of the family, so while he is building levels I start looking at building the game on the Playdate.</p>
+        <p>I find out that I had already separated the code into the Platformer system and the game play / UI, this makes everything much easier because the SpriteKit part is can be replaced with another library for rendering.</p>
+        <p>Currently, to build Embedded Swift you need to build with a recent <a href="https://www.swift.org/download/#snapshots">nightly Swift toolchain</a>. Since Core Graphics isn’t included in Swift Embedded, I start replacing <code>CGPoint</code> with a simple <code>Point</code> struct and replace <code>CGFloat</code> with <code>Double</code>, these kind of changes will come up a lot in this project.</p>
+        <p>I soon discoverd the library <a href="https://github.com/finnvoor/PlaydateKit">PlaydateKit</a> which is really easy to use for different game projects where Apple’s example is more of an example of what can be done. But the first issue I found was that I couldn’t import the Platformer System into the Play Date kit project because it isn’t an OSSA module and also the SPM setup of Platdate Kit is for the build system, adding dependencies to the <code>Package.swift</code> file doesn’t add them to your game project, it’s adding them to the Platdate build system for Swift.I tried to just use a symlink but the folder it showed up as a “chain” icon and i couldn’t see the files. The structure of Swift Package Manager projects doesn’t allow inclusion of folders ouside the <code>Source</code> folder so I couldn’t add a local package from higher up the folder hierarchy. I ended up just copying the files into the Playdate project to get started.</p>
+        <p>Next I removed all instances of <code>import Foundation</code>, luckily PlaydateKit has a lot of functions found inFoundation functions such as <code>sin</code>, <code>cos</code>, <code>pow</code> and <code>sqrt</code>. I removed <code>String(format:)</code> and uses of <code>NotificationCenter</code> and fixed some Swift 6 concurrency issues. I made some of the classes final that had generic functions and kept going through the errors. Sometimes errors show up but go away if you fix another error.</p>
+        <h3>Cannot do dynamic casting in embedded Swift on...</h3>
+        <p>The next issue was that Embedded Swift can’t do dynamic casting to protocols so I changed the <code>Actor</code> which is all things that move in the game from a type alias protocol collection to a regular class that other actors inherit from. This is a bit more like regular object oriented game programming. I also moved some functions out of extensions and they became overrides of <code>Actor</code> functions.</p>
+        <p>I turned off the actors and hooked up the tile rendering to Playdate Kit. I drew new sprites in black and white for the Playdate and named the sprite sheet <code>blocks-table-16-16.png</code> so it loads sprites that are 16x16 pixels. This was a problem because I had hard coded the Platformer system to be 32x32 pixels, so on the Playdate side I halved all the sizes and positions, this is something that needs to be fixed by setting the tile size at launch.</p>
+        <p>I had some helper variables that give the position of tiles as integers as well as floats, these were two separate variables, looking back, I’m not sure why I did this, and now it was causing problems with the layout of the tiles. I changed this so that there is a computed value for the integers from the float value.</p>
+        <img src="https://res.cloudinary.com/dxhxohuwc/image/upload/t_512_fill/v1739031315/platformer-blocks.png" alt="Platformer game running on Playdate with the blocks only." class="img-fluid" />
+        <p>Some <code>Actors</code> conform to <code>Droppable</code>, meaning they have function they can call if the object is dropped by another <code>Actor</code>, e.g. a <code>Box</code> that was picked up by the <code>Player</code> then dropped. A problem was when checking if an dropped object is <code>Droppable</code> before called <code>drop()</code> e.g. <code>if let dropableAttachable = attachable as? Droppable</code> gives the <strong>Cannot do dynamic casting in embedded Swift</strong> error. Fixed this by a more object oriented approach by moving the <code>Drop</code> function to be part of <code>Actor</code> and <code>Actor</code>s that can’t be picked up have empty drop functions.</p>
+        <p>This was the same with merging two dictionaries of type <code>[UUID: Actor]</code>, instead I just replaced the merge with a loop to add them together.</p>
+        <h3>Replacing Notification Center</h3>
+        <p>In the original implementation, when something changes the level a Notification Center notification is sent out from anywhere in the code to trigger the map to update. Notification Center is obviously not available in Embedded Swift so I has to come up with a different solution.</p>
+        <p>I made an <code>Observer</code> class, how it works is the main <code>Game</code> class sets up an <code>update</code> closure via the <code>setupUpdate</code> function from the <code>Observer</code>, this <code>update</code> closure updates the map when triggered. The <code>setupUpdate</code> function sets a <code>sendUpdate</code> closure that can be called from anywhere else in the codebase. So somewhere else in the game, e.g. the character hits a block and destroys it, then the <code>Observer</code>’s <code>sendUpdate</code> is called which triggers the <code>update</code> close in the main <code>Game</code> class.</p>
+        <pre><code class="language-swift">// Pseudocode:
 
 Game.init {
   Observer.setupUpdate {
@@ -124,23 +114,23 @@ Game.init {
 }
 
 Collision.blockDestroyed { Observer.sendUpdate } </code></pre>
-            <p>To update the tiles the <code>setupUpdate</code> closure needs to reference <code>self</code>. Normally I would use the <code>[weak self] in</code> pattern to avoid capturing self but the <code>weak</code> attribute isn’t available on Embedded Swift. I tried to use a combination of <code>withUnsafePointer</code> with <code>unsafeBitCast</code> when calling the closure and passing the reference to <code>self</code>.</p>
-            <pre><code class="language-swift">withUnsafePointer(to: from) { unsafeFrom in
+        <p>To update the tiles the <code>setupUpdate</code> closure needs to reference <code>self</code>. Normally I would use the <code>[weak self] in</code> pattern to avoid capturing self but the <code>weak</code> attribute isn’t available on Embedded Swift. I tried to use a combination of <code>withUnsafePointer</code> with <code>unsafeBitCast</code> when calling the closure and passing the reference to <code>self</code>.</p>
+        <pre><code class="language-swift">withUnsafePointer(to: from) { unsafeFrom in
   self.update = { package in
     let fromCast = unsafeBitCast(unsafeFrom, to: T.self)
     update(package, fromCast)
   }
 }</code></pre>
-            <p>This was not the right combination as updating the map from here would cause a crash, and looking at the addresses to self and what the unsafe pointer is pointing to they are different even when using <code>unsafeFrom.pointee</code>. <br /> <br />orig: 105553151664832 <br />unsafe pointer: 4294967297</p>
-            <p>I tried just using <code>unsafeBitCast</code></p>
-            <pre><code class="language-swift">let unsafeSelf = unsafeBitCast(from, to: Int.self)
+        <p>This was not the right combination as updating the map from here would cause a crash, and looking at the addresses to self and what the unsafe pointer is pointing to they are different even when using <code>unsafeFrom.pointee</code>. <br /> <br />orig: 105553151664832 <br />unsafe pointer: 4294967297</p>
+        <p>I tried just using <code>unsafeBitCast</code></p>
+        <pre><code class="language-swift">let unsafeSelf = unsafeBitCast(from, to: Int.self)
 self.update = { package in
   let fromCast = unsafeBitCast(unsafeSelf, to: T.self)
   update(package, fromCast)
 }</code></pre>
-            <p>Doesn’t crash, and the pointers are the same too: <br /> <br />orig: 105553147994432 <br />unsafe pointer: 105553147994432</p>
-            <p>I’m not sure if the lifetime of <code>unsafeSelf</code> is guaranteed, it’s created on the init of <code>Game</code> (with an instance of Game) and cast back to <code>Game</code> in the closure when an update arrives. So I’m hoping in this case it wont be invalid until the game quits. Now the call to <code>setupUpdate</code> (inside the main <code>Game</code> class) looks something like this:</p>
-            <pre><code class="language-swift">Observer.shared.setupUpdate(from: self) { package, aSelf in
+        <p>Doesn’t crash, and the pointers are the same too: <br /> <br />orig: 105553147994432 <br />unsafe pointer: 105553147994432</p>
+        <p>I’m not sure if the lifetime of <code>unsafeSelf</code> is guaranteed, it’s created on the init of <code>Game</code> (with an instance of Game) and cast back to <code>Game</code> in the closure when an update arrives. So I’m hoping in this case it wont be invalid until the game quits. Now the call to <code>setupUpdate</code> (inside the main <code>Game</code> class) looks something like this:</p>
+        <pre><code class="language-swift">Observer.shared.setupUpdate(from: self) { package, aSelf in
   switch package.message {
     case Constants.kNotificationMapChange:
       aSelf.background.mapChange(point: package.point, 
@@ -149,27 +139,27 @@ self.update = { package in
       break
   }
 }</code></pre>
-            <p>With the <code>observer</code> hooked up, I added the controls back in and player can now jump around and break bricks.</p>
-            <img alt="Platformer with player jumping and hitting blocks." src="https://res.cloudinary.com/dxhxohuwc/image/upload/v1739097137/platformer-tiles-change_ddhj6d.gif" class="img-fluid justify-content-center align-items-center" style="width: 512px" />
-            <p>The game started to crash when I hooked up the camera, this turned out to be a classic divide by zero error that was in the old platformer code.</p>
-            <img alt="Platformer with the camera moving along with the player." src="https://res.cloudinary.com/dxhxohuwc/image/upload/v1739098082/platformer-camera_ntkn0i.gif" class="img-fluid" />
-            <p>Now the game is playable on the Playdate.</p>
-          </div>
-          <div>
-            <h3>Porting back to Sprite Kit</h3>
-            <p>After getting it to run on the Playdate I had to get it to run again with Sprite Kit, this involved hooking up the new <code>Observer</code> class and since I had trouble linking the Platformer system to the Playdate project I just made a script to copy the code form the Platformer system folder to the Playdate project, which is not ideal but works. The <code>PlaydateKit</code> imports are wrapped in a <code>#if canImport(PlaydateKit)</code> macro otherwise it uses <code>Foundation</code>.</p>
-            <p>After getting it to run on the Playdate I had to get it to run again with Sprite Kit, this involved hooking up the new <code>Observer</code> class and since I had trouble linking the Platformer system to the Playdate project I just made a script to copy the code form the Platformer system folder to the Playdate project, which is not ideal but works. The <code>PlaydateKit</code> imports are wrapped in a <code>#if canImport(PlaydateKit)</code> macro otherwise it uses <code>Foundation</code>.</p>
-            <p>While I was getting this running on the Playdate my son was working on levels using the level editor that was built into the older macOS version of the game.</p>
-            <img alt="Platformer with built in level editor on macOS." src="https://res.cloudinary.com/dxhxohuwc/image/upload/c_crop,w_1600,h_1000/v1739310866/Screenshot_2025-02-11_at_22.53.36_nc9hom.png" class="img-fluid justify-content-center align-items-center" style="width: 512px" />
-            <p>I loaded up the new level on and side loaded the game on the play date. We had to remove some of the items because it was slowing the Playdate down, this could probably be fixed with some “chunking” of the levels.</p>
-            <div class="ratio ratio-4x3">
-              <iframe src="https://player.cloudinary.com/embed/?public_id=IMG_7504_jerz52&amp;cloud_name=dxhxohuwc&amp;profile=cld-default" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-            </div>
-            <p>So now it’s running on the Playdate, it run a bit slow, and there is no “world map” to change levels. Over all it was a great challenge to work within the constraints of Embedded Swift and very rewarding to work with my son on a game I started just before he was born, we are both excited to add more levels and more things for the player to do!</p>
-          </div>
+        <p>With the <code>observer</code> hooked up, I added the controls back in and player can now jump around and break bricks.</p>
+        <img src="https://res.cloudinary.com/dxhxohuwc/image/upload/v1739097137/platformer-tiles-change_ddhj6d.gif" alt="Platformer with player jumping and hitting blocks." class="img-fluid" style="width: 512px" />
+        <p>The game started to crash when I hooked up the camera, this turned out to be a classic divide by zero error that was in the old platformer code.</p>
+        <img src="https://res.cloudinary.com/dxhxohuwc/image/upload/v1739098082/platformer-camera_ntkn0i.gif" alt="Platformer with the camera moving along with the player." class="img-fluid" />
+        <p>Now the game is playable on the Playdate! I can build and run it on the Platdate simulator or take the zipped .pdx file and <a href="https://help.play.date/games/sideloading/">side load</a> it to a physical device.</p>
+      </div>
+      <div>
+        <h3>Porting back to Sprite Kit</h3>
+        <p>After getting it to run on the Playdate I wanted to get it running again with Sprite Kit, this involved hooking up the new <code>Observer</code> class on the Sprite Kit side and since I had trouble linking the Platformer system to the Playdate project I just made a script to copy the code form the Platformer system folder to the Playdate project, which is not ideal but works. The <code>PlaydateKit</code> imports are wrapped in a <code>#if canImport(PlaydateKit)</code> macro otherwise it uses <code>Foundation</code>.</p>
+        <p>After getting it to run on the Playdate I had to get it to run again with Sprite Kit, this involved hooking up the new <code>Observer</code> class and since I had trouble linking the Platformer system to the Playdate project I just made a script to copy the code form the Platformer system folder to the Playdate project, which is not ideal but works. The <code>PlaydateKit</code> imports are wrapped in a <code>#if canImport(PlaydateKit)</code> macro otherwise it uses <code>Foundation</code>.</p>
+        <p>While I was getting this running on the Playdate my son was working on levels using the level editor that was built into the older macOS version of the game.</p>
+        <img src="https://res.cloudinary.com/dxhxohuwc/image/upload/c_crop,w_1600,h_1000/v1739310866/Screenshot_2025-02-11_at_22.53.36_nc9hom.png" alt="Platformer with built in level editor on macOS." class="img-fluid" style="width: 512px" />
+        <p>I loaded up the new level on and side loaded the game on the play date. We had to remove some of the items because it was slowing the Playdate down, this could probably be fixed with some “chunking” of the levels.</p>
+        <div class="ratio ratio-4x3">
+          <iframe src="https://player.cloudinary.com/embed/?public_id=IMG_7504_jerz52&amp;cloud_name=dxhxohuwc&amp;profile=cld-default" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
         </div>
+        <p>So now it’s running on the Playdate, it run a bit slow, and there is no “world map” to change levels. Over all it was a great challenge to work within the constraints of Embedded Swift and very rewarding to work with my son on a game I started just before he was born, we are both excited to add more levels and more things for the player to do!</p>
+        <p>If you want to check out the game on Platdate or the original Sprite kit version it’s available in the <a href="https://github.com/richy486/Platformer">platformer game repo</a> on GitHub</p>
       </div>
     </div>
+    <p class="text-center mt-5">Created in Swift with <a href="https://github.com/twostraws/Ignite">Ignite</a></p>
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/syntax-highlighting.js"></script>
     <script src="/js/ignite-core.js"></script>
