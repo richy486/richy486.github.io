@@ -354,6 +354,12 @@ struct Platformer: StaticLayout {
       very rewarding to work with my son on a game I started just before he was born, we are both
       excited to add more levels and more things for the player to do!
       """)
+
+      Text(markdown:
+      """
+      If you want to check out the game on Platdate or the original Sprite kit version it's available
+      in the [platformer game repo](https://github.com/richy486/Platformer) on GitHub
+      """)
     }
   }
 }
