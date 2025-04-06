@@ -12,5 +12,6 @@ struct Home: StaticPage {
       .font(.title1)
 
     Link("Platformer", target: "platformer")
+    Link("GridDrum", target: "grid-drum")
   }
 }

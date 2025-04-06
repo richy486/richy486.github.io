@@ -32,6 +32,7 @@ struct ExampleSite: Site {
 
   var staticPages: [any StaticPage] {
     Platformer()
+    GridDrum()
   }
 }
 

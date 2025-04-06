@@ -16,6 +16,7 @@ struct Platformer: StaticPage {
   var body: some HTML {
     Text(title)
       .font(.title1)
+    Text("2025-02-16")
     Section {
       Image("https://res.cloudinary.com/dxhxohuwc/image/upload/t_512x512/v1738924343/platformer_square_xicjne.jpg",
             description: "The Playdate running a version of the Platformer game")
@@ -137,6 +138,11 @@ struct Platformer: StaticPage {
       Platformer system to be 32x32 pixels, so on the Playdate side I halved all the sizes and 
       positions, this is something that needs to be fixed by setting the tile size at launch.
       """)
+
+      Image("https://res.cloudinary.com/dxhxohuwc/image/upload/v1743971691/blocks-table-16-16_h4atec.png",
+            description: "Sprite sheet for Playdate.")
+      .resizable()
+      .frame(width: 256)
 
       Text(markdown:
       """
