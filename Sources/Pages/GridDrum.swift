@@ -121,7 +121,96 @@ the light was flashing, but the Volca Drum wasn't doing anything.
 """
 After a little research on how the Volca Mdi works I found out that first you have to set the Midi
 mode by holding down the record button when you turn it on. And then send Midi to a separate channel
-for each instrument (and starting at index 1!) 
+for each instrument (and starting at index 1!). The Volca Drum has 6 instruments that can be
+triggered by the buttons on the device or by Midi. When sending Midi to trigger the first instrument
+you send an "on" message with the key being anything, I used 100, a velocity, I used 127, and on
+channel 1. For the second instrument I send the same but on channel 2 and so on. There may be a way
+to have this all sent on channel 10 with an update to the firmware.
+"""
+    )
+
+    Text(markdown:
+"""
+Next I wanted to use one of the Norns buttons to play and pause. I used button 2 (sometimes called KEY2) to update a bool.
+"""
+    )
+
+    CodeBlock(.swift) {
+"""
+function key(id,state)
+  if id == 2 and state == 1 then
+    play = not play
+    print("play: ", play)
+  elseif id == 3 and state == 1 then
+    -- nothing
+  end
+end
+
+-- ...
+
+function update()
+  g:all(0)
+
+  for x = 1, gridSize.width do
+    for y = 1, gridSize.height do
+      if (beatColumn == x) then
+        
+        if (play == true) and (grid[x][y] == true) then
+          -- Selected position is on the line, play the note.
+          key = 100
+          velocity = 127
+          channel = y
+          out_midi:note_on(key, velocity, channel)
+          out_midi:note_off(key, velocity, channel)
+        end
+        -- Draw the line.
+        g:led(x, y, focus.brightness)
+      end
+      
+      -- Draw selected positions if they are not on the line.
+      if (beatColumn ~= x and grid[x][y] == true) then
+        g:led(x, y, focus.brightness)
+      end
+      
+      
+    end
+  end
+  
+  g:refresh()
+  redraw()
+end
+"""
+    }
+    Emphasis {
+      Text("The updated update code with sending the Midi on and off right afterwards as well as play/pause.")
+    }
+
+  Text(markdown:
+"""
+Finally I wanted to use one of the rotary encoder knobs to change the BPM. This works at the Norns
+OS level and is referred to as "tempo". I originally thought it would be the `clock.sync()` function
+but that is to do with how many steps per beat. You can fetch the current tempo with
+`clock.get_tempo()`, but to change the tempo you pass the delta from the encoder to
+`params:delta("clock_tempo", delta)`. It's also possible to set the tempo directly with
+`params:set("clock_tempo", 100)` but when I tried this with keeping a local copy of the tempo the
+updates were slow, updating the delta directly is much faster when turning the encoder. 
+"""
+    )
+
+
+    ZStack {
+      Embed(title: "Playing the Grid Drum with a 256 Monome Grid and the Volca Drum",
+            url: URL(string: "https://player.cloudinary.com/embed/?cloud_name=dxhxohuwc&public_id=IMG_7923_zsgcvb&profile=cld-default")!)
+        .aspectRatio(.square)
+    }
+    .frame(maxWidth: 512)
+
+    Text(markdown:
+"""
+Here is the script working, this is an older version without the play/pause and bpm on the Norns but
+you can set the triggers and it plays through the Volca! If you have a Volca Drum and a 256 Grid and
+want to try it out, or if you want to take the code and change it for your set up, it's
+[hosted on github](https://github.com/richy486/gridDrum).
 """
     )
   }
