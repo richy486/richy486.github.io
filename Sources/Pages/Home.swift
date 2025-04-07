@@ -2,6 +2,8 @@ import Foundation
 import Ignite
 
 struct Home: StaticPage {
+  let staticPages: [any BlogPost]
+  
   var title = "Projects by Richy"
   
   var body: some HTML {
@@ -10,8 +12,11 @@ struct Home: StaticPage {
 
     Text(title)
       .font(.title1)
-
-    Link("Platformer", target: "platformer")
-    Link("GridDrum", target: "grid-drum")
+    
+    ForEach(staticPages) { post in
+        Text {
+          Link(post.linkName + " " + post.dateString, target: post.target)
+        }
+    }
   }
 }

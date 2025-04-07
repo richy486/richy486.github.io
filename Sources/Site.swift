@@ -26,14 +26,16 @@ struct ExampleSite: Site {
   var feedConfiguration = FeedConfiguration(mode: .full, contentCount: 20, image: .init(url: "https://www.yoursite.com/images/icon32.png", width: 32, height: 32))
   var syntaxHighlighters: [HighlighterLanguage] = [.swift]
   var author = "Richy"
+  
+  static let staticPages: [any BlogPost] = [
+    GridDrum(),
+    Platformer()
+  ]
 
-  var homePage = Home()
+  var homePage = Home(staticPages: Self.staticPages)
   var layout = MainLayout()
 
-  var staticPages: [any StaticPage] {
-    Platformer()
-    GridDrum()
-  }
+  var staticPages: [any StaticPage] = Self.staticPages
 }
 
 

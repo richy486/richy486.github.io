@@ -8,7 +8,11 @@
 import Foundation
 import Ignite
 
-struct GridDrum: StaticPage {
+struct GridDrum: StaticPage, BlogPost {
+  let linkName: String = "Grid Drum"
+  let target: String = "grid-drum"
+  let dateString: String = "2025-04-06"
+  
   var title = "Simple step sequencer for playing Volca Drums on a Grid via Norns"
 
   var parentLayout = SuggestedArticleLayout()
@@ -16,7 +20,7 @@ struct GridDrum: StaticPage {
   var body: some HTML {
     Text(title)
       .font(.title1)
-    Text("2025-04-06")
+    Text(dateString)
 
     Image("https://res.cloudinary.com/dxhxohuwc/image/upload/t_1024/v1743966546/gridDrum_launch.jpg",
           description: "The launch screen of the Grid Drum app on Norns")

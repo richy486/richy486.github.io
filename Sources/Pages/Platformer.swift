@@ -8,7 +8,11 @@
 import Foundation
 import Ignite
 
-struct Platformer: StaticPage {
+struct Platformer: StaticPage, BlogPost {
+  let linkName: String = "Platformer"
+  let target: String = "platformer"
+  let dateString: String = "2025-02-16"
+  
   var title = "Platformer game on Embedded Swift with Playdate Kit"
 
   var parentLayout = SuggestedArticleLayout()
@@ -16,7 +20,8 @@ struct Platformer: StaticPage {
   var body: some HTML {
     Text(title)
       .font(.title1)
-    Text("2025-02-16")
+    Text(dateString)
+    
     Section {
       Image("https://res.cloudinary.com/dxhxohuwc/image/upload/t_512x512/v1738924343/platformer_square_xicjne.jpg",
             description: "The Playdate running a version of the Platformer game")
